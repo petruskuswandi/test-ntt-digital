@@ -98,10 +98,10 @@ public class ParkingLot
             string[] parts = registration.Split('-');
             if (parts.Length >= 2)
             {
-                string lastPart = parts[parts.Length - 1];
-                if (int.TryParse(lastPart, out int lastDigit) && lastDigit % 2 != 0)
+                string plateNumber = parts[1];
+                if (IsOddPlate(plateNumber))
                 {
-                    oddPlateRegistrations.Add(lastPart);
+                    oddPlateRegistrations.Add(registration);
                 }
             }
         }
@@ -116,16 +116,33 @@ public class ParkingLot
             string[] parts = registration.Split('-');
             if (parts.Length >= 2)
             {
-                string lastPart = parts[parts.Length - 1];
-                if (int.TryParse(lastPart, out int lastDigit) && lastDigit % 2 == 0)
+                string plateNumber = parts[1];
+                if (IsEvenPlate(plateNumber))
                 {
-                    evenPlateRegistrations.Add(lastPart);
+                    evenPlateRegistrations.Add(registration);
                 }
             }
         }
         Console.WriteLine(string.Join(", ", evenPlateRegistrations));
     }
 
+    private bool IsOddPlate(string plateNumber)
+    {
+        if (int.TryParse(plateNumber, out int number))
+        {
+            return number % 2 != 0;
+        }
+        return false;
+    }
+
+    private bool IsEvenPlate(string plateNumber)
+    {
+        if (int.TryParse(plateNumber, out int number))
+        {
+            return number % 2 == 0;
+        }
+        return false;
+    }
 
     public void RegistrationNumbersForVehiclesWithColor(string color)
     {
